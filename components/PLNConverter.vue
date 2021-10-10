@@ -30,10 +30,11 @@ export default defineComponent({
           `https://api.nbp.pl/api/exchangerates/tables/c/?format=json`
         );
 
-        data[0].rates.forEach(rate => {
-          if (currency === rate.code) conversion.value = rate.bid;
-          else conversion.value = 1;
-        });
+        if (currency === "PLN") conversion.value = 1;
+        else
+          data[0].rates.forEach(rate => {
+            if (currency === rate.code) conversion.value = rate.bid;
+          });
       } catch (error) {
         console.log(error);
       }
